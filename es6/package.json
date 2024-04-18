@@ -1,6 +1,6 @@
 {
     "name": "paths-es6",
-    "version": "6.19.0",
+    "version": "6.20.0",
     "description": "",
     "main": "demo.js",
     "scripts": {
@@ -19,7 +19,7 @@
     },
     "homepage": "https://github.com/jsplumb-toolkit-demonstrations/active-filtering#readme",
     "dependencies": {
-        "@jsplumbtoolkit/browser-ui": "^6.19.0",
+        "@jsplumbtoolkit/browser-ui": "^6.20.0",
         "jsplumbtoolkit-demo-support": "^1.0.0"
     },
     "devDependencies": {
