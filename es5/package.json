@@ -1,8 +1,8 @@
 {
     "name": "paths-es5",
-    "version": "6.50.0",
+    "version": "6.60.0",
     "dependencies": {
-        "@jsplumbtoolkit/browser-ui": "^6.50.0",
+        "@jsplumbtoolkit/browser-ui": "^6.60.0",
         "jsplumbtoolkit-demo-support": "^1.0.0"
     }
 }
