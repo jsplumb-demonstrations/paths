@@ -3,7 +3,6 @@ import {
     EVENT_TAP,
     EVENT_CANVAS_CLICK,
     EVENT_SURFACE_MODE_CHANGED,
-    SurfaceMode,
     DiamondOverlay,
     BlankEndpoint,
     StraightConnector,
@@ -14,7 +13,7 @@ import {
     ForceDirectedLayout,
     MiniviewPlugin,
     LassoPlugin,
-    PathTransport, SurfaceAnimator} from "@jsplumbtoolkit/browser-ui"
+    SurfaceAnimator} from "@jsplumbtoolkit/browser-ui"
 
 import { randomGraph } from "jsplumbtoolkit-demo-support"
 
@@ -109,7 +108,7 @@ ready(() => {
     // load the data,
     toolkit.load({type: "json", data: data})
 
-    // and then render it to "demo" with a "Spring" (force directed) layout.
+    // and then render it to "demo" with a ForceDirected layout.
     // supply it with some defaults for jsPlumb
     const renderer = toolkit.render(canvasElement, {
         view:view,
@@ -146,9 +145,7 @@ ready(() => {
             }
         },
         defaults: {
-            anchor:"Continuous",
-            connector: { type:StraightConnector.type, options:{ cssClass: "connectorClass", hoverClass: "connectorHoverClass" } },
-            endpoint: BlankEndpoint.type
+            connector: { type:StraightConnector.type, options:{ cssClass: "connectorClass", hoverClass: "connectorHoverClass" } }
         },
         consumeRightClick:false
     })
