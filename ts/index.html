@@ -1,31 +1,20 @@
 <!doctype html>
 <html>
 <head>
-    <title>jsPlumb Toolkit - Path Tracing Example</title>
+    <title>JsPlumb Toolkit - Path Tracing Example</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
     <link rel="stylesheet" href="node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit.css">
+    <link rel="stylesheet" href="node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-controls.css">
     <link rel="stylesheet" href="node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-demo-support.css">
     <link rel="stylesheet" href="./app.css">
 </head>
     <body>
 
-        <script type="jtk" id="jtk-template-default">
-            <div>
-                {{name}}
-            </div>
-        </script>
 
         <div class="jtk-demo-main" id="jtk-demo-paths">
 
             <div class="jtk-demo-canvas canvas-wide">
-                <div class="controls" state="stopped">
-                    <i class="fa fa-arrows selected-mode" mode="pan" title="Pan Mode"></i>
-                    <i class="fa fa-pencil" mode="select" title="Select Mode"></i>
-                    <i class="fa fa-home" reset title="Zoom To Fit"></i>
-                    <i class="fa transport" action="play" title="Play path trace"></i>
-                    <i class="fa transport" action="pause" title="Pause path trace"></i>
-                    <i class="fa transport" action="cancel" title="Cancel path trace"></i>
-                </div>
+                <div class="controls" state="stopped"></div>
                 <div class="miniview"></div>
             </div>
             <div class="jtk-demo-rhs">
