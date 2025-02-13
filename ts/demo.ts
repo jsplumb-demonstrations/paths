@@ -14,7 +14,8 @@ import {
     ForceDirectedLayout,
     MiniviewPlugin,
     LassoPlugin,
-    PathTransport, SurfaceAnimator} from "@jsplumbtoolkit/browser-ui"
+    PathTransport, SurfaceAnimator, ControlsComponent, AnchorLocations
+} from "@jsplumbtoolkit/browser-ui"
 
 import { randomGraph } from "jsplumbtoolkit-demo-support"
 
@@ -28,7 +29,7 @@ ready(() => {
     const mainElement = document.querySelector("#jtk-demo-paths"),
         canvasElement = mainElement.querySelector(".jtk-demo-canvas"),
         miniviewElement = mainElement.querySelector(".miniview"),
-        controls = document.querySelector(".controls");
+        controls = document.querySelector(".controls") as HTMLElement;
 
     // path traversal.
     let source:any = null
@@ -60,6 +61,7 @@ ready(() => {
         },
         nodes:{
             [DEFAULT]:{
+                template:`<div>{{name}}</div>`,
                 events: {
                     [EVENT_TAP]:(params:any) => {
                         // on node click...
@@ -88,7 +90,7 @@ ready(() => {
                                     }
                                 },
                                 options: {
-                                    speed: 120
+                                    speed: 160
                                 },
                                 listener: stateChange
                             })
@@ -107,10 +109,9 @@ ready(() => {
     }
 
     // load the data,
-    toolkit.load({type: "json", data: data})
+    toolkit.load({data})
 
-    // and then render it to "demo" with a "Spring" (force directed) layout.
-    // supply it with some defaults for jsPlumb
+    // Render
     const renderer = toolkit.render(canvasElement, {
         view:view,
         layout: {
@@ -133,9 +134,6 @@ ready(() => {
                 }
             }
         ],
-        dragOptions: {
-            filter: ".delete *, .add *"
-        },
         events: {
             [EVENT_CANVAS_CLICK]:  (e:Event) => {
                 toolkit.clearSelection()
@@ -146,25 +144,53 @@ ready(() => {
             }
         },
         defaults: {
-            anchor:"Continuous",
-            connector: { type:StraightConnector.type, options:{ cssClass: "connectorClass", hoverClass: "connectorHoverClass" } },
-            endpoint: BlankEndpoint.type
+            edgesAvoidVertices:true,
+            connector: {
+                type:StraightConnector.type,
+                options:{
+                    cssClass: "connectorClass",
+                    hoverClass: "connectorHoverClass",
+                    cornerRadius:5
+                }
+            }
         },
-        consumeRightClick:false
+        consumeRightClick:false,
+        zoomToFit:true
     })
 
     // get an animator instance to use
     animator = new SurfaceAnimator(renderer)
 
-    // pan mode/select mode
-    renderer.on(controls, EVENT_TAP, "[mode]", (e:Event) => {
-        renderer.setMode((e.target as any).getAttribute("mode"))
-    })
-
-    // on home button click, zoom content to fit.
-    renderer.on(controls, EVENT_TAP, "[reset]", (e:Event) => {
-        toolkit.clearSelection()
-        renderer.zoomToFit()
+    // Controls component offers zoom to extents, pan mode/lasso mode
+    // buttons, undo/redo. Here we also use its `buttons` extension to
+    // supply three buttons we can use to control the path transport.
+    new ControlsComponent(controls, renderer, {
+        buttons:[
+            {
+                id:"play",
+                class:"transport-play",
+                title:"Play path trace",
+                handler:(e:MouseEvent, id:string) => {
+                    transport && transport.play()
+                }
+            },
+            {
+                id:"pause",
+                class:"transport-pause",
+                title:"Pause path animation",
+                handler:(e:MouseEvent, id:string) => {
+                    transport && transport.pause()
+                }
+            },
+            {
+                id:"cancel",
+                class:"transport-cancel",
+                title:"Cancel path trace",
+                handler:(e:MouseEvent, id:string) => {
+                        transport && transport.cancel()
+                }
+            }
+        ]
     })
 
     // transport controls
@@ -175,13 +201,6 @@ ready(() => {
             transport = null
         }
     }
-
-    renderer.on(controls.querySelectorAll(".transport"), EVENT_TAP, (e:Event) => {
-        const action = (e.target as any).getAttribute("action")
-        if (transport != null) {
-            transport[action]()
-        }
-    })
 
 })
 
