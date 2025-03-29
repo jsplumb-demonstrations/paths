@@ -14,14 +14,14 @@ import {
     ForceDirectedLayout,
     MiniviewPlugin,
     LassoPlugin,
-    PathTransport, SurfaceAnimator, ControlsComponent, AnchorLocations
+    PathTransport, SurfaceAnimator, ControlsComponent, AnchorLocations, StateMachineConnector
 } from "@jsplumbtoolkit/browser-ui"
 
 import { randomGraph } from "jsplumbtoolkit-demo-support"
 
 ready(() => {
 
-    const data = randomGraph(5, 10)
+    const data = randomGraph(5, 8)
 
     // get a jsPlumbToolkit instance.
     const toolkit = newInstance()
@@ -144,18 +144,13 @@ ready(() => {
             }
         },
         defaults: {
-            edgesAvoidVertices:true,
-            connector: {
-                type:StraightConnector.type,
-                options:{
-                    cssClass: "connectorClass",
-                    hoverClass: "connectorHoverClass",
-                    cornerRadius:5
-                }
-            }
+            connector: StateMachineConnector.type
         },
         consumeRightClick:false,
-        zoomToFit:true
+        zoomToFit:true,
+        magnetize:{
+            afterLayout:true
+        }
     })
 
     // get an animator instance to use
