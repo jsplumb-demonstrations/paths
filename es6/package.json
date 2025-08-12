@@ -1,6 +1,6 @@
 {
     "name": "paths-es6",
-    "version": "7.3.1",
+    "version": "7.3.3",
     "scripts": {
         "build-es6": "./node_modules/.bin/esbuild demo.js --target=es2016 --bundle --format=iife --outfile=_build/bundle.js",
         "transpile-es5": "./node_modules/.bin/babel _build/bundle.js -o _build/bundle-es5.js",
@@ -19,7 +19,7 @@
     },
     "homepage": "https://github.com/jsplumb-demonstrations/paths#readme",
     "dependencies": {
-        "@jsplumbtoolkit/browser-ui": "^7.3.1",
+        "@jsplumbtoolkit/browser-ui": "^7.3.3",
         "jsplumbtoolkit-demo-support": "^1.0.0"
     },
     "devDependencies": {
